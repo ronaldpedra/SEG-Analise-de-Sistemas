@@ -1,0 +1,19 @@
+https://github.com/ronaldpedra/SEG-Analise-de-Sistemas/
+
+Grupo 1
+https://github.com/WilliamNogueira02/Cafeteria-Projeto
+
+Grupo 2
+https://github.com/mariaalicedarosa881-sys/SEG-analise-de-sistemas/
+
+Grupo 3
+https://github.com/taylormayer1405-jpg/SEG-ANALISES-DE-SISTEMAS/blob/main/Requisitos%20do%20cliente.txt
+
+Grupo 4
+https://github.com/marvynmurussi/trabalho-auto-pecas/blob/main/projeto/levantamento-de-requisitos.txt
+
+
+
+
+clientes
+- nome_cliente
