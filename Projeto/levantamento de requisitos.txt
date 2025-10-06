@@ -35,3 +35,9 @@ UPDATE "cliente" SET "email"="rui_123@email.com"
 WHERE "cpf_cliente"="850079005";
 
 DELETE FROM "clientes" WHERE "cpf"="4843259063";
+
+7. Implementação do CRUD no arquivo py
+video de referência:
+https://www.youtube.com/watch?v=mWBNI1cS0jg (completo com flask)
+https://www.youtube.com/watch?v=yP3X4gSUYHM (para entendimento geral)
+https://www.youtube.com/watch?v=_q3j25ACmQ4 (Lira Hashtagprogramacao)
