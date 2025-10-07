@@ -1,7 +1,7 @@
-def soma(x, y):
-    return x + y
+def soma(beta, alfa):
+    return beta + alfa
 
-a = int(input())
-b = int(input())
-s = soma(a, b)
-print(f"SOMA = {s}")
+A = int(input())
+B = int(input())
+SOMA = soma(A, B)
+print("SOMA =", SOMA)
