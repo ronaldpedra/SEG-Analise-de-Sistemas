@@ -1,0 +1,176 @@
+- Requisitos:
+1. VS Code
+    Extensöes:
+    a. SQLite
+    b. SQLite Viewer
+    c. SQLite3 Editor
+    d. Live Server
+    e. Python
+2. Python
+3. DB Browser
+
+- Bibliotecas
+1. flask
+2. flask-sqlalchemy
+
+- Etapas:
+1. Crie o arquivo app.py
+2. Instale o flask: 
+    pip install flask
+3. Instale o flask-sqlalchemy: 
+    pip install flask-sqlalchemy
+4. Importe o flask
+    from flask import Flask
+5. Crie o app flask
+    app = Flask(__name__)
+6. Crie a rota padräo
+    @app.route('/')
+    def index():
+        return 'Olá Mundo!'
+7. Crie o inicializador do servidor
+    if __name__ == '__main__':
+        app.run(debug=True, port=5153)
+8. Importe o render_template de flask
+    from flask import Flask, render_template
+9. Crie a pasta templates
+10. Crie o arquivo index.html na pasta templates
+11. altere a rota padrão para incluir o render_template
+    @app.route('/')
+    def index():
+        return render_template('index.html')
+12. No arquivo index.html, crie o html padräo
+    - html lang="pt-BR"
+    - title: PetShop
+    - crie um <h1>PetShop Au Au</h1>
+13. Aprendendo a interação do python com html
+    a. Crie uma lista simples
+        clientes = ['cliente 1', 'cliente 2', 'cliente 3', 'cliente 4']
+    b. Inclua os clientes como parâmetro no render_template da rota padrão
+14. No arquivo index.html rederize os clientes
+    a. Crie o laço de repetição jinja
+        <h2>Clientes Cadastrados</h2>
+        <ul>
+            {% for cliente in clientes %}
+                <li>{{ cliente }}</li>
+            {% endfor %}
+        </ul>
+15. Compreendida a interação do python com html, passaremos a verificar a interação do python com o banco de dados
+16. Importe a biblioteca flask_sqlalchemy:
+        from flask_sqlalchemy import SQLAlchemy
+17. Instancie o Banco de Dados (instanciar significa criar um objeto na memória para ser usado depois)
+        app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///petshop_db.db'
+        db = SQLAlchemy(app)
+    O sistema cria automaticamente a pasta instances por padrão
+18. Crie a classe que irá gerenciar a tabela CLIENTE
+    class CLIENTE(db.Model):
+        id_cliente = db.Column(db.Integer, primary_key=True, autoincrement=True)
+        nome = db.Column(db.String(100), nullable=False)
+        telefone = db.Column(db.String(15), unique=True, nullable=False)
+        email = db.Column(db.String(100), unique=True)
+        cpf = db.Column(db.String(14), unique=True)
+        data_cadastro = db.Column(db.DateTime(), default=datetime.datetime.now)
+    lembra de importar a biblioteca datetime
+19. Atualize o inicializador do servidor para criar o banco de dados
+    with app.app_context():
+        db.create_all()
+
+- Implementação do CRUD
+1. Implemente o Read (Ler)
+    a. Na rota padão, altere a variável tasks para clientes e insira a consulta:
+        clientes = CLIENTE.query.all()
+    b. Verifique o resultado na página!
+    c. Na página apareceram os objetos clientes. Para visualizar os dados é necessário modificar o objeto no index.html
+        {{ cliente.nome }}
+2. Implemente o Create (Criar)
+    a. Importe de flask os métodos request e redirect
+        from flask import Flask, render_template, request, redirect
+    b. Implemente a rota para criar um novo cliente
+        @app.route('/create', methods=['POST'])
+    c. Crie a função create_cliente
+        def create_cliente():
+    d. Faça a ligação dos dados com o formulário que será criado no index.html
+        nome = request.form['nome']
+        telefone = request.form['telefone']
+        email = request.form['email']
+        cpf = request.form['cpf']
+    e. Crie a variável novo_cliente
+        novo_cliente = CLIENTE(nome=nome, telefone=telefone, email=email, cpf=cpf)
+    f. Abra uma sessão para criar o cliente no banco de dados
+        db.session.add(novo_cliente)
+    g. Para confirmar a alteração no banco de dados, faça um commit
+        db.session.commit()
+    h. Finalize dando um return redirect para a página inicial
+        return redirect('/')
+2.1 Atualizando o index.html criando o formulário logo após o nome da empresa do cliente
+    <h2>Adicionar Novo Cliente</h2>
+    <form action="/create" method="POST">
+        <input type="text" name="nome" placeholder="Nome" required>
+        <input type="text" name="telefone" placeholder="Telefone" required>
+        <input type="text" name="email" placeholder="E-mail">
+        <input type="text" name="cpf" placeholder="CPF">
+        <button type="submit">Cadastrar Cliente</button>
+    </form> 
+2.2 Neste ponto, tente cadastrar um usuário com conflito de integridade pelo padrão unique estabelecido na tabela CLIENTE
+    Tente cadastrar um cliente com o mesmo número de telefone de outro cliente
+    Ocorrerá um erro de integridade
+    Para resolver esse problema faremos uma consulta ao banco para ver se o cliente já não está cadastrado
+    # Valida se o cliente já está cadastrado
+        existe_cliente_telefone = CLIENTE.query.filter_by(telefone=telefone).first()
+        existe_cliente_email = CLIENTE.query.filter_by(email=email).first()
+        existe_cliente_cpf = CLIENTE.query.filter_by(cpf=cpf).first()
+
+        if (existe_cliente_telefone or existe_cliente_email or existe_cliente_cpf):
+            return 'ERRO: Cliente já Cadastrado!', 400
+3. Implemente o método Delete (Apagar)
+    a. Implemente a rota para deletar um cliente
+        @app.route('/delete/<int:id_cliente>', methods=['POST'])
+    b. Crie a função para deletar o cliente
+        def delete_cliente(id_cliente):
+    c. Procure o cliente no banco de dados pelo id_cliente
+        cliente = CLIENTE.query.get(id_cliente)
+    d. Verifica se o cliente ainda existe, caso positivo faz a exclusão
+        if cliente:
+            db.session.delete(cliente)
+            db.session.commit()
+3.1 Com o backend pronto, só falta atualizar o index.html
+    <ul>
+        {% for cliente in clientes %}
+            <li>
+                {{ cliente.nome }}
+                <form action="/delete/{{ cliente.id_cliente }}" method="POST" style="display: inline;">
+                    <button type="submit">Excluir</button>
+                </form>
+            </li>
+        {% endfor %}
+    </ul>
+4. Implementando o método Update (atualizar)
+    a. Implemente a rota para deletar um cliente
+        @app.route('/update/<int:id_cliente>', methods=['POST'])
+    b. Crie a função para deletar o cliente
+        def update_cliente(id_cliente):
+    c. Procure o cliente no banco de dados pelo id_cliente
+        cliente = CLIENTE.query.get(id_cliente)
+    d. Verifica se o cliente existe, caso positivo faz a atualização
+        if cliente:
+            cliente.nome = request.form['nome']
+            cliente.telefone = request.form['telefone']
+            cliente.cpf = request.form['cpf']
+            db.session.commit()
+4.1 Falta atualizar o index.html
+    <ul style="list-style: none;">
+        {% for cliente in clientes %}
+            <li>
+                <form action="/update/{{ cliente.id_cliente }}" method="POST" style="display: inline;">
+                    <input type="text" name="nome" value="{{ cliente.nome }}">
+                    <input type="text" name="telefone" value="{{ cliente.telefone }}">
+                    <input type="text" name="email" value="{{ cliente.email }}">
+                    <input type="text" name="cpf" value="{{ cliente.cpf }}">
+                    <button type="submit">Atualizar</button>
+                </form>
+
+                <form action="/delete/{{ cliente.id_cliente }}" method="POST" style="display: inline;">
+                    <button type="submit">Excluir</button>
+                </form>
+            </li>
+        {% endfor %}
+    </ul>    
