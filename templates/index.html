@@ -8,13 +8,17 @@
 <body>
     <h1>PetShop Au Au</h1>
     <h2>Adicionar Novo Cliente</h2>
-    <form action="/create" method="POST">
-        <input type="text" name="nome" placeholder="Nome" required>
-        <input type="text" name="telefone" placeholder="Telefone" required>
-        <input type="text" name="email" placeholder="E-mail">
-        <input type="text" name="cpf" placeholder="CPF">
-        <button type="submit">Cadastrar Cliente</button>
-    </form>
+    <ul style="list-style: none;">
+        <li>
+            <form action="/create" method="POST">
+                <input type="text" name="nome" placeholder="Nome" required>
+                <input type="text" name="telefone" placeholder="Telefone" required>
+                <input type="text" name="email" placeholder="E-mail">
+                <input type="text" name="cpf" placeholder="CPF">
+                <button type="submit">Cadastrar Cliente</button>
+            </form>
+        </li>
+    </ul>
     <h2>Clientes Cadastrados</h2>
     <ul style="list-style: none;">
         {% for cliente in clientes %}
