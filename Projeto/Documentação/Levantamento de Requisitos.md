@@ -5,7 +5,7 @@
 | Detalhe | Valor |
 | :--- | :--- |
 | **Papel Assumido** | Analista de Sistemas |
-| **Cliente** | Pet Shop (Geral) |
+| **Cliente** | Pet Shop Au Au |
 | **Fase do Projeto** | Mínimo Produto Viável (MVP) com Integridade de Dados |
 | **Foco Principal** | Gestão Unificada de Clientes/Pets, Serviços/Agendamento, Estoque/Vendas e Relatórios. |
 
