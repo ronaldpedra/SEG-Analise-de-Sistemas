@@ -136,7 +136,7 @@
     class CLIENTE(db.Model):
         id_cliente = db.Column(db.Integer, primary_key=True, autoincrement=True)
         nome = db.Column(db.String(100), nullable=False)
-        [cite_start]telefone = db.Column(db.String(15), unique=True, nullable=False) [cite: 10]
+        telefone = db.Column(db.String(15), unique=True, nullable=False)
         email = db.Column(db.String(100), unique=True)
         cpf = db.Column(db.String(14), unique=True)
         data_cadastro = db.Column(db.DateTime(), default=datetime.datetime.now)
@@ -155,16 +155,16 @@
 
 ## Implementação do CRUD
 
-### 1 Read (Ler)
+### 1\. Read (Ler)
 
-a. [cite\_start]Na rota padrão, altere a variável e insira a consulta: [cite: 11]
+a. Na rota padrão, altere a variável e insira a consulta:
 
 ```python
 clientes = CLIENTE.query.all()
 ```
 
-b. [cite\_start]Verifique o resultado na página. [cite: 12]
-c. [cite\_start]Para visualizar os dados, modifique o objeto no `index.html`: [cite: 13]
+b. Verifique o resultado na página.
+c. Para visualizar os dados, modifique o objeto no `index.html`:
 
 ```html
 {{ cliente.nome }}
@@ -172,25 +172,25 @@ c. [cite\_start]Para visualizar os dados, modifique o objeto no `index.html`: [c
 
 ### 2\. Create (Criar)
 
-a. [cite\_start]Importe os métodos `request` e `redirect` do Flask. [cite: 14]
+a. Importe os métodos `request` e `redirect` do Flask.
 
 ```python
 from flask import Flask, render_template, request, redirect
 ```
 
-b. [cite\_start]Implemente a rota para criar um novo cliente: [cite: 15]
+b. Implemente a rota para criar um novo cliente:
 
 ```python
 @app.route('/create', methods=['POST'])
 ```
 
-c. [cite\_start]Crie a função `create_cliente`: [cite: 16]
+c. Crie a função `create_cliente`:
 
 ```python
 def create_cliente():
 ```
 
-d. [cite\_start]Faça a ligação dos dados com o formulário: [cite: 17]
+d. Faça a ligação dos dados com o formulário:
 
 ```python
 nome = request.form['nome']
@@ -199,25 +199,25 @@ email = request.form['email']
 cpf = request.form['cpf']
 ```
 
-e. [cite\_start]Crie a variável `novo_cliente`: [cite: 18]
+e. Crie a variável `novo_cliente`:
 
 ```python
 novo_cliente = CLIENTE(nome=nome, telefone=telefone, email=email, cpf=cpf)
 ```
 
-f. [cite\_start]Abra uma sessão para adicionar o cliente no banco de dados: [cite: 19]
+f. Abra uma sessão para adicionar o cliente no banco de dados:
 
 ```python
 db.session.add(novo_cliente)
 ```
 
-g. [cite\_start]Confirme a alteração no banco de dados com um commit: [cite: 20]
+g. Confirme a alteração no banco de dados com um commit:
 
 ```python
 db.session.commit()
 ```
 
-h. [cite\_start]Finalize redirecionando para a página inicial: [cite: 21]
+h. Finalize redirecionando para a página inicial:
 
 ```python
 return redirect('/')
@@ -229,13 +229,13 @@ Adicione o formulário no arquivo `index.html`:
 
 ```html
 <h2>Adicionar Novo Cliente</h2>
-[cite_start]<form action="/create" method="POST"> [cite: 22]
+<form action="/create" method="POST">
     <input type="text" name="nome" placeholder="Nome" required>
     <input type="text" name="telefone" placeholder="Telefone" required>
     <input type="text" name="email" placeholder="E-mail">
     <input type="text" name="cpf" placeholder="CPF">
     <button type="submit">Cadastrar Cliente</button>
-[cite_start]</form> [cite: 22]
+</form>
 ```
 
 #### 2.2 Tratamento de erro de integridade
@@ -246,7 +246,7 @@ Para evitar erros ao cadastrar um cliente com dados duplicados, adicione uma val
 # Valida se o cliente já está cadastrado
 existe_cliente_telefone = CLIENTE.query.filter_by(telefone=telefone).first()
 existe_cliente_email = CLIENTE.query.filter_by(email=email).first()
-[cite_start]existe_cliente_cpf = CLIENTE.query.filter_by(cpf=cpf).first() [cite: 23]
+existe_cliente_cpf = CLIENTE.query.filter_by(cpf=cpf).first()
 
 if (existe_cliente_telefone or existe_cliente_email or existe_cliente_cpf):
     return 'ERRO: Cliente já Cadastrado!', 400
@@ -254,25 +254,25 @@ if (existe_cliente_telefone or existe_cliente_email or existe_cliente_cpf):
 
 ### 3\. Delete (Apagar)
 
-a. [cite\_start]Implemente a rota para deletar um cliente: [cite: 24]
+a. Implemente a rota para deletar um cliente:
 
 ```python
 @app.route('/delete/<int:id_cliente>', methods=['POST'])
 ```
 
-b. [cite\_start]Crie a função para deletar o cliente: [cite: 25]
+b. Crie a função para deletar o cliente:
 
 ```python
 def delete_cliente(id_cliente):
 ```
 
-c. [cite\_start]Procure o cliente no banco de dados pelo ID: [cite: 26]
+c. Procure o cliente no banco de dados pelo ID:
 
 ```python
 cliente = CLIENTE.query.get(id_cliente)
 ```
 
-d. [cite\_start]Verifique se o cliente existe e, em caso positivo, faça a exclusão: [cite: 27]
+d. Verifique se o cliente existe e, em caso positivo, faça a exclusão:
 
 ```python
 if cliente:
@@ -289,7 +289,7 @@ Modifique a lista de clientes para incluir o botão de exclusão:
     {% for cliente in clientes %}
         <li>
             {{ cliente.nome }}
-            [cite_start]<form action="/delete/{{ cliente.id_cliente }}" method="POST" style="display: inline;"> [cite: 28]
+            <form action="/delete/{{ cliente.id_cliente }}" method="POST" style="display: inline;">
                 <button type="submit">Excluir</button>
             </form>
         </li>
@@ -299,25 +299,25 @@ Modifique a lista de clientes para incluir o botão de exclusão:
 
 ### 4\. Update (Atualizar)
 
-a. [cite\_start]Implemente a rota para atualizar um cliente: [cite: 29]
+a. Implemente a rota para atualizar um cliente:
 
 ```python
 @app.route('/update/<int:id_cliente>', methods=['POST'])
 ```
 
-b. [cite\_start]Crie a função para atualizar o cliente: [cite: 30]
+b. Crie a função para atualizar o cliente:
 
 ```python
 def update_cliente(id_cliente):
 ```
 
-c. [cite\_start]Procure o cliente no banco de dados pelo ID: [cite: 31]
+c. Procure o cliente no banco de dados pelo ID:
 
 ```python
 cliente = CLIENTE.query.get(id_cliente)
 ```
 
-d. [cite\_start]Verifique se o cliente existe e, em caso positivo, faça a atualização: [cite: 32]
+d. Verifique se o cliente existe e, em caso positivo, faça a atualização:
 
 ```python
 if cliente:
@@ -334,17 +334,17 @@ Atualize a lista para incluir os campos de atualização e o botão de exclusão
 ```html
 <ul style="list-style: none;">
     {% for cliente in clientes %}
-        [cite_start]<li> [cite: 33]
-            [cite_start]<form action="/update/{{ cliente.id_cliente }}" method="POST" style="display: inline;"> [cite: 33]
+        <li>
+            <form action="/update/{{ cliente.id_cliente }}" method="POST" style="display: inline;">
                 <input type="text" name="nome" value="{{ cliente.nome }}">
                 <input type="text" name="telefone" value="{{ cliente.telefone }}">
-                [cite_start]<input type="text" name="email" value="{{ cliente.email }}"> [cite: 34]
+                <input type="text" name="email" value="{{ cliente.email }}">
                 <input type="text" name="cpf" value="{{ cliente.cpf }}">
                 <button type="submit">Atualizar</button>
             </form>
 
             <form action="/delete/{{ cliente.id_cliente }}" method="POST" style="display: inline;">
-                [cite_start]<button type="submit">Excluir</button> [cite: 35]
+                <button type="submit">Excluir</button>
             </form>
         </li>
     {% endfor %}
