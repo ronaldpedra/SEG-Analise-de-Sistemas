@@ -4,15 +4,15 @@
 
 **Ferramentas:**
 
-  * VS Code [cite: 1]
+  * VS Code
       * **Extensões:**
-          * [cite\_start]SQLite [cite: 1]
-          * [cite\_start]SQLite Viewer [cite: 2]
-          * [cite\_start]SQLite3 Editor [cite: 2]
-          * [cite\_start]Live Server [cite: 2]
-          * [cite\_start]Python [cite: 3]
-  * [cite\_start]Python [cite: 3]
-  * [cite\_start]DB Browser [cite: 3]
+          * SQLite
+          * SQLite Viewer
+          * SQLite3 Editor
+          * Live Server
+          * Python
+  * Python
+  * DB Browser
 
 **Bibliotecas:**
 
@@ -57,7 +57,7 @@
         return 'Olá Mundo!'
     ```
 
-7.  [cite\_start]**Crie o inicializador do servidor:** [cite: 4]
+7.  **Crie o inicializador do servidor:**
 
     ```python
     if __name__ == '__main__':
@@ -88,16 +88,16 @@
       * `title: PetShop`
       * Crie um `<h1>PetShop Au Au</h1>`
 
-13. [cite\_start]**Aprendendo a interação do Python com HTML:** [cite: 5]
-    a. [cite\_start]Crie uma lista simples: [cite: 6]
+13. **Aprendendo a interação do Python com HTML:**
+    a. Crie uma lista simples:
 
     ```python
     clientes = ['cliente 1', 'cliente 2', 'cliente 3', 'cliente 4']
     ```
 
-    b. [cite\_start]Inclua os clientes como parâmetro no `render_template` da rota padrão. [cite: 7]
+    b. Inclua os clientes como parâmetro no `render_template` da rota padrão.
 
-14. [cite\_start]**No arquivo `index.html`, renderize os clientes criando um laço de repetição Jinja:** [cite: 8]
+14. **No arquivo `index.html`, renderize os clientes criando um laço de repetição Jinja:**
 
     ```html
     <h2>Clientes Cadastrados</h2>
@@ -110,7 +110,7 @@
 
 15. **Compreendida a interação do Python com HTML, passaremos a verificar a interação do Python com o banco de dados.**
 
-16. [cite\_start]**Importe a biblioteca `flask_sqlalchemy`:** [cite: 9]
+16. **Importe a biblioteca `flask_sqlalchemy`:**
 
     ```python
     from flask_sqlalchemy import SQLAlchemy
