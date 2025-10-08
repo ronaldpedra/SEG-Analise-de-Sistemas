@@ -155,7 +155,7 @@
 
 ## Implementação do CRUD
 
-### 1\. Read (Ler)
+### 1 Read (Ler)
 
 a. [cite\_start]Na rota padrão, altere a variável e insira a consulta: [cite: 11]
 
