@@ -98,6 +98,10 @@
 
     b. Inclua os clientes como parâmetro no `render_template` da rota padrão.
 
+    ```python
+    return render_template('index.html', clientes=clientes)
+    ```
+
 14. **No arquivo `index.html`, renderize os clientes criando um laço de repetição Jinja:**
 
     ```html
