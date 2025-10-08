@@ -4,7 +4,7 @@
 
 **Ferramentas:**
 
-  * [cite\_start]VS Code [cite: 1]
+  * VS Code [cite: 1]
       * **Extensões:**
           * [cite\_start]SQLite [cite: 1]
           * [cite\_start]SQLite Viewer [cite: 2]
