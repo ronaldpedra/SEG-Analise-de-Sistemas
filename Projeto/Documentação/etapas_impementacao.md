@@ -31,6 +31,12 @@
     pip install flask
     ```
 
+    - Opção util:
+
+    ```bash
+    pip install -r requirements.txt
+    ```
+
 3.  **Instale o Flask-SQLAlchemy:**
 
     ```bash
