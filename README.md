@@ -1,4 +1,6 @@
 # SEG Analise de Sistemas
-Arquivos do curso de Analise de Sistemas
 
-Teste de upload do GitHub
+Conteúdo:
+Arquivos do Curso de Analise de Sistemas do SEG
+Projeto documentado
+Implementação parcial do Projeto em app Python
