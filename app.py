@@ -1,13 +1,18 @@
+"""SEG-Analise-de-Sistemas/app.py"""
+
+from datetime import datetime
 from flask import Flask, render_template, request, redirect
 from flask_sqlalchemy import SQLAlchemy
-from datetime import datetime
+
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///petshop_db.db'
 db = SQLAlchemy(app)
 
+
 # Definição do Modelo
 class CLIENTE(db.Model):
+    """Cria a tablea de clientes"""
     id_cliente = db.Column(db.Integer, primary_key=True)
     nome = db.Column(db.String(100), nullable=False)
     telefone = db.Column(db.String(15), unique=True, nullable=False)
@@ -15,7 +20,7 @@ class CLIENTE(db.Model):
     cpf = db.Column(db.String(14), unique=True)
     data_cadastro = db.Column(db.DateTime(), default=datetime.now)
 
-# cRud - Read (ler) 
+# cRud - Read (ler)
 @app.route('/')
 def index():
     clientes = CLIENTE.query.all()
